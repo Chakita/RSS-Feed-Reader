@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+<channel>
+	<title>Eclipse and Java Information</title>
+	<link>https://www.vogella.com/</link>
+	<description>Eclipse and Java Information</description>
+	<language>en</language>
+	<copyright>Copyright hold by Lars Vogel</copyright>
+	<pubdate>Fri, 22 Apr 2022 11:59:23 +0530</pubdate>
+<item>
+	<title>RSSFeed</title>
+	<description>This is a description</description>
+	<link>https://www.vogella.com/tutorials/RSSFeed/article.html</link>
+	<author>nonsense@somewhere.de (Lars Vogel)</author>
+	<guid>https://www.vogella.com/tutorials/RSSFeed/article.html</guid>
+
+</item>
+
+</channel>
+</rss>
