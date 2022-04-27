@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -26,17 +28,21 @@ public class RSSFeedParser {
     static final String PUB_DATE = "pubDate";
     static final String GUID = "guid";
 
-    final URL url;
+    List<URL> urls= new ArrayList<>();
 
-    public RSSFeedParser(String feedUrl) {
+    public RSSFeedParser(List<String> urls) {
+    	for( int i=0;i<urls.size();i++)
+    	{		
         try {
-            this.url = new URL(feedUrl);
+            URL url = new URL(urls.get(i));
+            this.urls.add(url);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
     }
-
-    public Feed readFeed() {
+    }
+    public List<Feed> readFeed() {
+        List<Feed> feeds = new ArrayList<>();
         Feed feed = null;
         try {
             boolean isFeedHeader = true;
@@ -51,17 +57,22 @@ public class RSSFeedParser {
             // First create a new XMLInputFactory
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
             // Setup a new eventReader
-            InputStream in = read();
-            XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
+            List <InputStream> instreams = read();
+            for(int i=0;i<instreams.size();i++)
+            { XMLEventReader eventReader = inputFactory.createXMLEventReader(instreams.get(i));
             // read the XML document
-            while (eventReader.hasNext()) {
+            while (eventReader.hasNext()) 
+            {
                 XMLEvent event = eventReader.nextEvent();
-                if (event.isStartElement()) {
+                if (event.isStartElement()) 
+                {
                     String localPart = event.asStartElement().getName()
                             .getLocalPart();
-                    switch (localPart) {
+                    switch (localPart)
+                    {
                     case ITEM:
-                        if (isFeedHeader) {
+                        if (isFeedHeader)
+                        {
                             isFeedHeader = false;
                             feed = new Feed(title, link, description, language,
                                     copyright, pubdate);
@@ -99,11 +110,19 @@ public class RSSFeedParser {
                     }
                 }
             }
-        } catch (XMLStreamException e) {
+            feeds.add(feed);
+            isFeedHeader = true;
+        } 
+        }
+        catch (XMLStreamException e) 
+        {
             throw new RuntimeException(e);
         }
-        return feed;
-    }
+        return feeds;
+        }
+     
+        
+    
 
     private String getCharacterData(XMLEvent event, XMLEventReader eventReader)
             throws XMLStreamException {
@@ -115,11 +134,22 @@ public class RSSFeedParser {
         return result;
     }
 
-    private InputStream read() {
-        try {
-            return url.openStream();
-        } catch (IOException e) {
+    private List<InputStream> read() {
+    	List<InputStream> streams =  new ArrayList<>();
+    	InputStream stream;
+    	for(int i=0;i<urls.size();i++)
+        {   URL url = urls.get(i);
+    		try 
+    		{  
+    		  	stream= url.openStream();
+    		  	streams.add(stream);
+             } 
+    		catch (IOException e) 
+    		{
             throw new RuntimeException(e);
+              }
+    		
         }
+    	return streams;
     }
 }
