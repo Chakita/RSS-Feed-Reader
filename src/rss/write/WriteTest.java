@@ -1,4 +1,4 @@
-package de.ooad.rss.tests;
+package rss.write;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -6,9 +6,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import de.ooad.rss.model.Feed;
-import de.ooad.rss.model.FeedMessage;
-import de.ooad.rss.write.RSSFeedWriter;
+import rss.feed.Feed;
+import rss.feed.FeedMessage;
 
 public class WriteTest {
 
@@ -31,8 +30,6 @@ public class WriteTest {
         FeedMessage feed = new FeedMessage();
         feed.setTitle("RSSFeed");
         feed.setDescription("This is a description");
-        feed.setAuthor("nonsense@somewhere.de (Lars Vogel)");
-        feed.setGuid("https://www.vogella.com/tutorials/RSSFeed/article.html");
         feed.setLink("https://www.vogella.com/tutorials/RSSFeed/article.html");
         rssFeeder.getMessages().add(feed);
 

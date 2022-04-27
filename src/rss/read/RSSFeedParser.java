@@ -1,4 +1,4 @@
-package de.ooad.rss.read;
+package rss.read;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,8 +11,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.Characters;
 import javax.xml.stream.events.XMLEvent;
 
-import de.ooad.rss.model.Feed;
-import de.ooad.rss.model.FeedMessage;
+import rss.feed.Feed;
+import rss.feed.FeedMessage;
 
 public class RSSFeedParser {
     static final String TITLE = "title";
@@ -40,15 +40,13 @@ public class RSSFeedParser {
         Feed feed = null;
         try {
             boolean isFeedHeader = true;
-            // Set header values intial to the empty string
+            // Set header values initial to the empty string
             String description = "";
             String title = "";
             String link = "";
             String language = "";
             String copyright = "";
-            String author = "";
             String pubdate = "";
-            String guid = "";
 
             // First create a new XMLInputFactory
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
@@ -79,14 +77,8 @@ public class RSSFeedParser {
                     case LINK:
                         link = getCharacterData(event, eventReader);
                         break;
-                    case GUID:
-                        guid = getCharacterData(event, eventReader);
-                        break;
                     case LANGUAGE:
                         language = getCharacterData(event, eventReader);
-                        break;
-                    case AUTHOR:
-                        author = getCharacterData(event, eventReader);
                         break;
                     case PUB_DATE:
                         pubdate = getCharacterData(event, eventReader);
@@ -98,9 +90,7 @@ public class RSSFeedParser {
                 } else if (event.isEndElement()) {
                     if (event.asEndElement().getName().getLocalPart() == (ITEM)) {
                         FeedMessage message = new FeedMessage();
-                        message.setAuthor(author);
                         message.setDescription(description);
-                        message.setGuid(guid);
                         message.setLink(link);
                         message.setTitle(title);
                         feed.getMessages().add(message);

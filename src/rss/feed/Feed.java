@@ -1,4 +1,4 @@
-package de.ooad.rss.model;
+package rss.feed;
 import java.util.ArrayList;
 import java.util.List;
 

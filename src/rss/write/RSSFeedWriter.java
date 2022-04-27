@@ -1,4 +1,4 @@
-package de.ooad.rss.write;
+package rss.write;
 
 import java.io.FileOutputStream;
 
@@ -12,8 +12,8 @@ import javax.xml.stream.events.StartDocument;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
-import de.ooad.rss.model.Feed;
-import de.ooad.rss.model.FeedMessage;
+import rss.feed.Feed;
+import rss.feed.FeedMessage;
 
 public class RSSFeedWriter {
 
@@ -76,8 +76,6 @@ public class RSSFeedWriter {
             createNode(eventWriter, "title", entry.getTitle());
             createNode(eventWriter, "description", entry.getDescription());
             createNode(eventWriter, "link", entry.getLink());
-            createNode(eventWriter, "author", entry.getAuthor());
-            createNode(eventWriter, "guid", entry.getGuid());
             eventWriter.add(end);
             eventWriter.add(eventFactory.createEndElement("", "", "item"));
             eventWriter.add(end);

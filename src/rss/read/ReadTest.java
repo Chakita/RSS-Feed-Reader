@@ -1,8 +1,7 @@
-package de.ooad.rss.tests;
+package rss.read;
 
-import de.ooad.rss.model.Feed;
-import de.ooad.rss.model.FeedMessage;
-import de.ooad.rss.read.RSSFeedParser;
+import rss.feed.Feed;
+import rss.feed.FeedMessage;
 
 public class ReadTest {
     public static void main(String[] args) {
