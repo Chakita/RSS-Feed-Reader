@@ -1,5 +1,6 @@
 package rss.read;
 import rss.csv.CSVReader;
+import rss.database.JDBCPostgreSQLConnection;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,11 +22,15 @@ public class ReadTest {
         RSSFeedParser parser = new RSSFeedParser(urls);
         List<Feed>feeds = parser.readFeed();
         Feed feed=null;
+        JDBCPostgreSQLConnection db = new JDBCPostgreSQLConnection();
         for(int i=0;i<feeds.size();i++)
         {   feed = feeds.get(i);
-        	System.out.println(feed.printDetails());
+        	//System.out.println(feed.printDetails());
         for (FeedMessage message : feed.getMessages()) {
             System.out.println(message);
+            db.Insert(message);
+            System.out.println("Successfull");
+            
 
         }
 
