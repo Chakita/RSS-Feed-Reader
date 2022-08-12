@@ -10,4 +10,4 @@ The list of sites for which the content has been updated can be viewed on the UI
 ## Running the project
 - Clone the repo
 - Ensure that you have the latest version of Java installed along with the PostgreSQL JDBC Driver.
-- Navigate to the RSSFeadReader.java file and run it
+- Navigate to the ```ReadTest.java``` file and run it
